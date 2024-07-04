@@ -11,7 +11,14 @@ conda activate convnextv2
 
 Install [Pytorch](https://pytorch.org/)>=1.8.0, [torchvision](https://pytorch.org/vision/stable/index.html)>=0.9.0 following official instructions. For example:
 ```
-pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+conda install cudatoolkit=11.1.1 -c conda-forge
+conda install cudatoolkit-dev=11.1.1 -c conda-forge
+conda install pytorch==1.8.0 torchvision==0.9.0 torchaudio==0.8.0 cudatoolkit=11.1 -c pytorch -c conda-forge
+```
+Check Permission denied(publickey), <br> 
+refered to https://blog.csdn.net/qq_38825788/article/details/125859041, to authorize the GitHub account.
+```
+ssh -T git@github.com
 ```
 
 Clone this repo and install required packages:
@@ -26,6 +33,11 @@ Install MinkowskiEngine:
 
 *(Note: we have implemented a customized CUDA kernel for depth-wise convolutions, which the original MinkowskiEngine does not support.)*
 ```
+cd ConvNeXt-V2
+vim .gitmodules
+branch = main
+```
+```
 git submodule update --init --recursive
 git submodule update --recursive --remote
 cd MinkowskiEngine
@@ -35,8 +47,20 @@ python setup.py install --blas_include_dirs=${CONDA_PREFIX}/include --blas=openb
 Install apex
 ```
 git clone https://github.com/NVIDIA/apex
+```
+comment the following code
+```
+
+```
+```
+vim apex/contrib/optimizers/distributed_fused_lamb.py
+vim apex/transformer/tensor_parallel/layers.py
+vim apex/transformer/tensor_parallel/utils.py
+vim apex/transformer/tensor_parallel/mappings.py
+```
+```
 cd apex
-pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+pip install -v --no-build-isolation --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 cd ..
 ```
 
