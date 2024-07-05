@@ -5,20 +5,45 @@ We provide installation instructions for ImageNet classification experiments her
 ## Dependency Setup
 Create an new conda virtual environment
 ```
-conda create -n convnextv2 python=3.8 -y
-conda activate convnextv2
+conda create -n convnextv2_test python=3.8 -y
+conda activate convnextv2_test
 ```
 
-Install [Pytorch](https://pytorch.org/)>=1.8.0, [torchvision](https://pytorch.org/vision/stable/index.html)>=0.9.0 following official instructions. For example:
+Install CUDA
 ```
 conda install cudatoolkit=11.1.1 -c conda-forge
+```
+Check cuDNN installed. If not, install cuDNN (older version than CUDA) <br>
+![image](https://github.com/noyaboy/ConvNeXtV2_Install/assets/99811508/2760601b-d92a-45f3-b1cd-341f84e685d2)
+```
+conda list
+conda search cudnn -c conda-forge
+conda install cudnn==8.1.0.77 -c conda-forge
+```
+Check CUDA installed. If not, install cudatoolkit-dev. Related to $CUDA_HOME variable issue)
+```
+nvcc --version
+conda search cudatoolkit-dev -c conda-forge
 conda install cudatoolkit-dev=11.1.1 -c conda-forge
+```
+Install [Pytorch](https://pytorch.org/)>=1.8.0, [torchvision](https://pytorch.org/vision/stable/index.html)>=0.9.0 following official instructions. <br>
+Go to https://pytorch.org/get-started/previous-versions/ and search for the required PyTorch version
+```
 conda install pytorch==1.8.0 torchvision==0.9.0 torchaudio==0.8.0 cudatoolkit=11.1 -c pytorch -c conda-forge
 ```
-Check Permission denied(publickey), <br> 
-refered to https://blog.csdn.net/qq_38825788/article/details/125859041, to authorize the GitHub account.
+Go to https://blog.csdn.net/qq_38825788/article/details/125859041 to authorize the GitHub account.
 ```
 ssh -T git@github.com
+>> git@github.com: Permission denied (publickey)
+```
+Way to authorize the GitHub account
+```
+ssh-keygen -t rsa
+```
+Three enters <br>
+then to ~/.ssh/id_rsa.pub copy content, login github, press setting, SSH and GPG keys, New SSH keys, random title, paste content to key, press Add key
+ssh -T git@github.com
+>> Hi <username>, You've successfully ...
 ```
 
 Clone this repo and install required packages:
