@@ -132,6 +132,7 @@ Export environment
 cd ~
 conda env export > convnextv2.yml
 ```
+pretrain
 ```
 make pretrain
 ```
