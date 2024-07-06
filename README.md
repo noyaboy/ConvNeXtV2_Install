@@ -109,7 +109,7 @@ vim Makefile
 ```
 ```
 pretrain:
-	CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node=4 main_pretrain.py \
+	python -m torch.distributed.launch --nproc_per_node=4 main_pretrain.py \
 	--model convnextv2_tiny \
 	--batch_size 64 --update_freq 8 \
 	--blr 1.5e-4 \
