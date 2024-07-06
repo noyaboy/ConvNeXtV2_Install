@@ -109,14 +109,14 @@ vim Makefile
 ```
 ```
 pretrain:
-	python -m torch.distributed.launch --nproc_per_node=8 main_pretrain.py \
+	python -m torch.distributed.launch --nproc_per_node=4 main_pretrain.py \
 	--model convnextv2_tiny \
 	--batch_size 64 --update_freq 8 \
 	--blr 1.5e-4 \
 	--epochs 1600 \
 	--warmup_epochs 40 \
 	--data_path /home1/dataset/ImageNet/ \
-	--output_dir /home1/science103555/ckp_weight/ConvNeXt-V2/
+	--output_dir /home1/science103555/ckp_weight/convnextv2_imagenet/
 ```
 Comment the following code
 ```
